@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <style>
+       
+           
+
+    </style>
+</head>
+<body>
+    
+
+    <input type="text" id="input1">
+    <button onclick="whethercheck()">Check</button>
+    <div id="maindiv">
+        <h2 id="h1-1"></h2>
+        <h2 id="h1-2"></h2>
+        <img src="" id="image-12"  alt="">
+        <h2 id="main-h1"></h2>
+        <h2 id="main-text"></h2>
+    
+     <h2 id="h1-3"></h2>
+    <h2 id="h1-4"></h2> 
+     <h2 id="h1-5"></h2> 
+    <h2 id="h1-6"></h2>
+    </div>
+    <script>
+        function whethercheck(){
+            let input1 = document.querySelector("#input1").value;
+            let mainDiv = document.querySelector("#image-12");
+            let main1Head = document.querySelector("#main-h1");
+            let mainText = document.querySelector("#main-text");
+            let head1 = document.querySelector("#h1-1")
+            let head2 = document.querySelector("#h1-2")
+            let head3 = document.querySelector("#h1-3")
+            let head4 = document.querySelector("#h1-4")
+            let head5 = document.querySelector("#h1-5")
+            let head6 = document.querySelector("#h1-6")
+            axios.get('https://api.weatherapi.com/v1/current.json?key=bc95a555c96041ed99970949220107&q='+input1)
+            .then(function(response){
+                let data = response.data;
+                let image1 = data.current.condition.icon;
+                
+                let feelLike = data.current.feelslike_c;
+                let count = data.location.country;
+                let text1 = data.current.condition.text;
+                let tempC = data.current.temp_c;
+                let datetime = new Date();
+                let updated = datetime.getDate();
+                let updatedDay = datetime.getMonth();
+                let Array = ["January", "February", "March", "April", "May", "June", "July", "August" , "September" , "October" , "November" ,  "December"]
+              let result = Array[updatedDay]
+                    
+
+                
+               
+                head2.innerHTML =` TIME:${updated} ${result}`
+                head1.innerHTML = `COUNTRY: ${count}`;
+                 mainDiv.src = `https:${image1}`
+                 main1Head.innerHTML = ` temp:${tempC} feellike:${feelLike}`
+                 mainText.innerHTML = ` ${text1}`
+
+                 
+
+            })
+        }
+    </script>
+</body>
+</html>
